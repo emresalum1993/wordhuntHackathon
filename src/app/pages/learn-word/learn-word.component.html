@@ -52,7 +52,7 @@
 
                                     </div>
                                     <div>
-                                        <p-button [loading]="savingNewWord" *ngIf="!savedRecent" (click)="saveWordToPool()" label="Öğrendim!" styleClass="p-button-outlined" icon="pi pi-bookmark"></p-button>
+                                        <p-button [loading]="savingNewWord" *ngIf="!savedRecent" (click)="saveWordToPool()" label="Öğrendim!" styleClass="p-button-outlined p-button-sm" icon="pi pi-bookmark"></p-button>
                                         <button pTooltip="Öğrendiklerimi göster" routerLink="/myWords" tooltipPosition="left" *ngIf="savedRecent" pButton pRipple type="button" icon="pi pi-bookmark-fill" class=" p-button-outlined p-button-success"></button>
                                     </div>
 

@@ -7,6 +7,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
+  filterText = ""
   loadingScores = true
   scoreList: any
   activeTab = 0
@@ -43,5 +44,17 @@ export class ScoreBoardComponent implements OnInit {
   }
   indexChange() {
     this.sortScores()
+  }
+  containsFilter(item: any) {
+    if (item.userId.name.toLowerCase().indexOf(this.filterText.toLocaleLowerCase()) >= 0 || item.userId.score.toString().indexOf(this.filterText.toLocaleLowerCase()) >= 0  || item.words.length.toString().indexOf(this.filterText.toLocaleLowerCase()) >= 0) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  containsFiltersNone() {
+    return this.scoreList.some((item: any) => item.userId.name.toLowerCase().indexOf(this.filterText.toLocaleLowerCase()) >= 0 || item.userId.score.toString().indexOf(this.filterText.toLocaleLowerCase()) >= 0  || item.words.length.toString().indexOf(this.filterText.toLocaleLowerCase()) >= 0)
   }
 }

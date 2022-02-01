@@ -18,8 +18,9 @@ import { tada, fadeIn } from 'ngx-animate';
 export class MultipleChoiceComponent implements OnInit {
 
   @ViewChild("letterCharInput", { static: false }) codeInput: any;
+  emptyPool = false 
   loadingPool = true
-  pools = []
+  pools:any 
   randomSingle: any
   randoms: any
   selectedWord = ""
@@ -37,8 +38,14 @@ export class MultipleChoiceComponent implements OnInit {
     this.wordService.pools$.subscribe(
       (data) => {
         this.pools = data
-
-        this.getRandomWord()
+        if (this.pools.words.length > 0){
+          this.emptyPool = false 
+          this.getRandomWord()
+        }
+        else{
+          this.emptyPool = true 
+        }
+        
       }
     )
   }

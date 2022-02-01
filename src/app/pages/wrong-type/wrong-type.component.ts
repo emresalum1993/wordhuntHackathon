@@ -19,8 +19,9 @@ import { environment } from 'src/environments/environment';
 export class WrongTypeComponent implements OnInit, AfterViewInit {
 
   @ViewChild("letterCharInput", { static: false }) codeInput: any;
+  emptyPool = false 
   loadingPool = true
-  pools = []
+  pools:any
   randomSingle: any
   answerLetter: any = []
   missType = ""
@@ -36,7 +37,15 @@ export class WrongTypeComponent implements OnInit, AfterViewInit {
     this.wordService.pools$.subscribe(
       (data) => {
         this.pools = data
-        this.getRandomWord()
+        if (this.pools.words.length > 0){
+          this.emptyPool = false 
+          this.getRandomWord()
+        }
+        else{
+          this.emptyPool = true 
+        }
+        
+      
       }
     )
   }

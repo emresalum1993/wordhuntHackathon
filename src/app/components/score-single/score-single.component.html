@@ -6,7 +6,7 @@
                     <p-badge *ngIf="rank+1 == 1" [value]="rank + 1" severity="success" styleClass="mr-2"></p-badge>
                     <p-badge *ngIf="rank+1 == 2" [value]="rank + 1" severity="info" styleClass="mr-2"></p-badge>
                     <p-badge *ngIf="rank+1 == 3" [value]="rank + 1" severity="warning" styleClass="mr-2"></p-badge>
-                    <p-badge *ngIf="rank+1 > 3" [value]="rank + 1" styleClass="mr-2"></p-badge>
+                    <p-badge *ngIf="rank+1 > 3" [value]="rank + 1" styleClass="mr-2 rank-ordinary"></p-badge>
                 </div>
                 <div class="pe-3">
                     <p-avatar [label]="item.userId.name.split('')[0]" styleClass="mr-2" size="large" shape="circle"></p-avatar>

@@ -65,11 +65,25 @@ export class LearnWordComponent implements OnInit {
         (data) => {
           this.loadingTranslate = false
           this.translateResult = JSON.parse(data.result)
+
+          let originalText = this.translateText
+          let translatedText = this.translateResult[0].translations[0].text
+          let newSourceLang = fromTo[0]
+          let newDestLang = fromTo[1]
+         
+          if (fromTo[0] == "en") {
+            originalText = this.translateResult[0].translations[0].text
+            translatedText = this.translateText
+            newSourceLang = fromTo[1]
+            newDestLang = fromTo[0]
+          }
+
+
           var body = {
-            sourceLang: fromTo[0],
-            destLang: fromTo[1],
-            original: this.translateText,
-            translated: this.translateResult[0].translations[0].text,
+            sourceLang: newSourceLang,
+            destLang: newDestLang,
+            original: originalText,
+            translated: translatedText,
             date: new Date(),
             score: 10,
             userId: this.userService.userId
@@ -92,13 +106,18 @@ export class LearnWordComponent implements OnInit {
     var fromTo = this.translateMode.split(":")
     let originalText = this.translateText
     let translatedText = this.translateResult[0].translations[0].text
+    let newSourceLang = fromTo[0]
+    let newDestLang = fromTo[1]
+   
     if (fromTo[0] == "en") {
       originalText = this.translateResult[0].translations[0].text
       translatedText = this.translateText
+      newSourceLang = fromTo[1]
+      newDestLang = fromTo[0]
     }
     var body = {
-      sourceLang: fromTo[0],
-      destLang: fromTo[1],
+      sourceLang: newSourceLang,
+      destLang: newDestLang,
       original: originalText,
       translated: translatedText,
       date: new Date(),
@@ -118,13 +137,17 @@ export class LearnWordComponent implements OnInit {
   saveWordToPoolByWord(item: any, original: string, translated: string, sourceLang: string, destLang: string) {
     let originalText = original
     let translatedText = translated
+    let newSourceLang = sourceLang
+    let newDestLang = destLang
     if (sourceLang == "en") {
       originalText = translated
       translatedText = original
+      newSourceLang = destLang
+      newDestLang = sourceLang
     }
     var body = {
-      sourceLang: sourceLang,
-      destLang: destLang,
+      sourceLang: newSourceLang,
+      destLang: newDestLang,
       original: originalText,
       translated: translatedText,
       date: new Date(),
@@ -132,6 +155,7 @@ export class LearnWordComponent implements OnInit {
       userId: this.userService.userId
     }
 
+    console.log(body)
     item.saving = true
     this.wordService.saveToPool(body).subscribe(
       (data) => {
@@ -180,6 +204,8 @@ export class LearnWordComponent implements OnInit {
 
       });
     }
+
+    console.log(this.poolsItems)
 
   }
 

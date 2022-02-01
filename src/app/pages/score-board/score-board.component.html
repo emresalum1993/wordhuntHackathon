@@ -12,7 +12,7 @@
                     <div class="col-12 pt-4">
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText placeholder="Sıralamada ara" />
+                            <input [(ngModel)]="filterText" type="text" pInputText placeholder="Sıralamada ara" />
                         </span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                                         <div class="text-start">
                                             <div class="d-flex" *ngIf="!loadingScores && myRank >= 0">
                                                 <div class="me-4">
-                                                    <p-avatar [label]="myScore" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
+                                                    <p-avatar [label]="myScore > 0 ? myScore : '0'" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
                                                 </div>
                                                 <div>
                                                     <p class="fw-bold fs-6 mb-1">{{userService.user.name}}</p>
@@ -183,7 +183,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="!loadingScores">
                                     <ng-container *ngFor="let item of scoreList; let i = index ">
-                                        <app-score-single [item]="item" [type]="activeTab" [rank]="i"></app-score-single>
+                                        <app-score-single *ngIf="containsFilter(item)" [item]="item" [type]="activeTab" [rank]="i"></app-score-single>
                                     </ng-container>
                                 </ng-container>
 
@@ -197,7 +197,7 @@
                                         <div class="text-start">
                                             <div class="d-flex" *ngIf="!loadingScores && myRank >= 0">
                                                 <div class="me-4">
-                                                    <p-avatar [label]="myWordCount" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
+                                                    <p-avatar [label]="myWordCount > 0 ? myWordCount : '0' " styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
                                                 </div>
                                                 <div>
                                                     <p class="fw-bold fs-6 mb-1">{{userService.user.name}}</p>
@@ -347,7 +347,7 @@
                                 </ng-container>
                                 <ng-container *ngIf="!loadingScores">
                                     <ng-container *ngFor="let item of scoreList; let i = index ">
-                                        <app-score-single [item]="item" [type]="activeTab" [rank]="i"></app-score-single>
+                                        <app-score-single *ngIf="containsFilter(item)" [item]="item" [type]="activeTab" [rank]="i"></app-score-single>
                                     </ng-container>
                                 </ng-container>
 
@@ -355,6 +355,17 @@
                         </p-tabPanel>
 
                     </p-tabView>
+
+
+                    <ng-container *ngIf="!loadingScores && (scoreList.length == 0 || !containsFiltersNone())">
+                        <div class="text-center">
+                            <img src="../../../assets/undraw_notfound.svg" class="img-fluid mt-4" style="height:18vh">
+                            <h4 class="gray-light mt-3">
+                                Hay aksi! Hiçbirşey bulamadık.
+                            </h4>
+                        </div>
+                    </ng-container>
+
 
                 </div>
 

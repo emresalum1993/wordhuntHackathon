@@ -22,7 +22,9 @@ export class GuessWordComponent implements OnInit, AfterViewInit {
   @ViewChild("letterCharInput", { static: false }) codeInput: any;
   //Pool variables
   loadingPool = true
-  pools = []
+  pools:any
+
+  emptyPool = false 
   //Image variables 
   wordImg = ""
   loadingWordImg = true
@@ -41,7 +43,14 @@ export class GuessWordComponent implements OnInit, AfterViewInit {
         this.pools = data
         console.log(this.pools)
 
-        this.getRandomWord()
+        if (this.pools.words.length > 0){
+          this.emptyPool = false 
+          this.getRandomWord()
+        }
+        else{
+          this.emptyPool = true 
+        }
+ 
       }
     )
   }

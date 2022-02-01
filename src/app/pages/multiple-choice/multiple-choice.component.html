@@ -12,80 +12,101 @@
 
 
             </div>
-            <div class="guess-area mt-4 text-center  d-flex flex-column align-items-center justify-content-center">
 
-                <div class="img-area word-img  ">
 
-                    <p-image @tada *ngIf="!loadingWordImg" [src]="wordImg" alt="Image" [preview]="true"></p-image>
-                    <p-skeleton *ngIf="loadingWordImg" width="190px" height="190px"></p-skeleton>
+            <ng-container *ngIf="emptyPool">
+                <div class="d-flex align-items-center h-100 justify-content-center pt-5 flex-column">
+                    <img src="../../../assets/undraw_first.svg" class="img-fluid mt-4" style="height:18vh">
+                    <h4 class="gray-light mt-4">
+                        İlk ziyaretiniz mi?
+                    </h4>
+                    <p class="gray-light text-center">
+                        Burası çok boş görünüyor. <br>Başlamadan önce birkaç kelime öğrenmeyi deneyin.
+                    </p>
+                    <div class="text-center mt-5">
+                        <p-button routerLink="/learn" label="Kelime Öğren" icon="pi pi-bookmark-fill" styleClass="p-button-lg" [style]="{width:'220px'}"></p-button>
+
+                    </div>
                 </div>
+            </ng-container>
 
-                <div class="text-area">
-                    <div class="w-100 mt-3 text-center">
-                        <h2 class="fw-bolder mb-4" *ngIf="!loadingPool && !answered">
-                            {{randomSingle.original}}
-                        </h2>
+            <ng-container *ngIf="!emptyPool">
+                <div class="guess-area mt-4 text-center  d-flex flex-column align-items-center justify-content-center">
 
-                        <div class="points-area mb-4">
-                            <p-tag *ngIf="!loadingPool && randomSingle.scoreToGrant > 0" [value]="'+' + randomSingle.scoreToGrant +  ' Puan'"></p-tag>
-                            <p-tag severity="danger" *ngIf="!loadingPool && randomSingle.scoreToGrant <= 0" [value]="'+' + '0' +  ' Puan'"></p-tag>
-                            <div *ngIf="loadingPool" class="d-flex alig-items-center">
-                                <div style="display: block;
-                                margin: 0 auto;
-                                width: 70px;">
-                                    <p-skeleton width="70px" height="30px"></p-skeleton>
+                    <div class="img-area word-img  ">
+
+                        <p-image @tada *ngIf="!loadingWordImg" [src]="wordImg" alt="Image" [preview]="true"></p-image>
+                        <p-skeleton *ngIf="loadingWordImg" width="190px" height="190px"></p-skeleton>
+                    </div>
+
+                    <div class="text-area">
+                        <div class="w-100 mt-3 text-center">
+                            <h2 class="fw-bolder mb-4" *ngIf="!loadingPool && !answered">
+                                {{randomSingle.original}}
+                            </h2>
+
+                            <div class="points-area mb-4">
+                                <p-tag *ngIf="!loadingPool && randomSingle.scoreToGrant > 0" [value]="'+' + randomSingle.scoreToGrant +  ' Puan'"></p-tag>
+                                <p-tag severity="danger" *ngIf="!loadingPool && randomSingle.scoreToGrant <= 0" [value]="'+' + '0' +  ' Puan'"></p-tag>
+                                <div *ngIf="loadingPool" class="d-flex alig-items-center">
+                                    <div style="display: block;
+                                    margin: 0 auto;
+                                    width: 70px;">
+                                        <p-skeleton width="70px" height="30px"></p-skeleton>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div *ngIf="!loadingPool && !answered" class="buttona-area mt-5 text-center d-flex align-items-center justify-content-center">
+                                <div *ngFor="let choice of shuffledChoices; let i = index">
+                                    <button (click)="chooseChoice(i)" pButton type="button" [label]="getChoiceText(i)" class="p-button-outlined me-3" badge="20" badgeClass="p-badge-info"></button>
                                 </div>
 
                             </div>
-                        </div>
+                            <div *ngIf="loadingPool" class="buttona-area mt-5 text-center d-flex align-items-center justify-content-center">
+                                <div class="me-3">
+                                    <p-skeleton width="100px" height="47px"></p-skeleton>
+                                </div>
+                                <div class="me-3">
+                                    <p-skeleton width="100px" height="47px"></p-skeleton>
+                                </div>
 
-                        <div *ngIf="!loadingPool && !answered" class="buttona-area mt-5 text-center d-flex align-items-center justify-content-center">
-                            <div *ngFor="let choice of shuffledChoices; let i = index">
-                                <button (click)="chooseChoice(i)" pButton type="button" [label]="getChoiceText(i)" class="p-button-outlined me-3" badge="20" badgeClass="p-badge-info"></button>
-                            </div>
-
-                        </div>
-                        <div *ngIf="loadingPool" class="buttona-area mt-5 text-center d-flex align-items-center justify-content-center">
-                            <div class="me-3">
-                                <p-skeleton width="100px" height="47px"></p-skeleton>
-                            </div>
-                            <div class="me-3">
-                                <p-skeleton width="100px" height="47px"></p-skeleton>
-                            </div>
-
-                            <div class="me-3">
-                                <p-skeleton width="100px" height="47px"></p-skeleton>
-                            </div>
-
-                        </div>
-
-                        <div *ngIf="!loadingPool && answered">
-                            <h3 class="fw-bold mt-4 mb-3">
-                                {{randomSingle.original + ' = ' + randomSingle.translated}}
-                            </h3>
-                        </div>
-
-                        <div class="status-area mt-4" @wobble *ngIf="!loadingPool  && answered" [class.noscore]="randomSingle.scoreToGrant <= 0" [class.score]="randomSingle.scoreToGrant > 0">
-                            <div>
-                                <h5 class="fw-bolder mb-0">
-                                    <ng-container *ngIf="randomSingle.scoreToGrant > 0">🥳 Bravo! <br>{{randomSingle.scoreToGrant}} Puan Kazandınız!</ng-container>
-                                    <ng-container *ngIf="randomSingle.scoreToGrant <= 0">😭 Hay aksi! <br>Puan Kazanamadınız!</ng-container>
-                                </h5>
-                            </div>
-
-
-
-                        </div>
-                        <div class="mt-5 button-area text-center" *ngIf="!loadingPool  && answered"> <button (click)="getRandomWord()" pButton type="button" label="Yeni Kelime" badgeClass="p-badge-info"></button></div>
-                        <div class="position-relative" *ngIf="randomSingle?.scoreToGrant > 0 && !loadingPool  && answered">
-                            <div class="confetti-svg">
+                                <div class="me-3">
+                                    <p-skeleton width="100px" height="47px"></p-skeleton>
+                                </div>
 
                             </div>
+
+                            <div *ngIf="!loadingPool && answered">
+                                <h3 class="fw-bold mt-4 mb-3">
+                                    {{randomSingle.original + ' = ' + randomSingle.translated}}
+                                </h3>
+                            </div>
+
+                            <div class="status-area mt-4" @wobble *ngIf="!loadingPool  && answered" [class.noscore]="randomSingle.scoreToGrant <= 0" [class.score]="randomSingle.scoreToGrant > 0">
+                                <div>
+                                    <h5 class="fw-bolder mb-0">
+                                        <ng-container *ngIf="randomSingle.scoreToGrant > 0">🥳 Bravo! <br>{{randomSingle.scoreToGrant}} Puan Kazandınız!</ng-container>
+                                        <ng-container *ngIf="randomSingle.scoreToGrant <= 0">😭 Hay aksi! <br>Puan Kazanamadınız!</ng-container>
+                                    </h5>
+                                </div>
+
+
+
+                            </div>
+                            <div class="mt-5 button-area text-center" *ngIf="!loadingPool  && answered"> <button (click)="getRandomWord()" pButton type="button" label="Yeni Kelime" badgeClass="p-badge-info"></button></div>
+                            <div class="position-relative" *ngIf="randomSingle?.scoreToGrant > 0 && !loadingPool  && answered">
+                                <div class="confetti-svg">
+
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
+            </ng-container>
+
 
 
         </div>

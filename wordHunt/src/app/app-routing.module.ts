@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'myWords', component: MyWordsComponent, canActivate: [LoginGuardService],data: {state:  'words'}  },
   { path: 'learn', component: LearnWordComponent, canActivate: [LoginGuardService],data: {state:  'learn'}  },
   { path: 'ladder', component: ScoreBoardComponent ,canActivate: [LoginGuardService],data: {state:  'ladder'} },
-  { path: 'home', component: HomeComponent, canActivate: [LoginGuardService],data: {state:  'home'}  }
+  { path: 'home', component: HomeComponent, canActivate: [LoginGuardService],data: {state:  'home'}  },
   { path: '', component: HomeComponent, canActivate: [LoginGuardService],data: {state:  'home'}  }
 ];
 

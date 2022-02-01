@@ -98,7 +98,6 @@ app-root {
 }
 
 code-input {
-    justify-content: center;
     align-items: center;
     span {
         width: 58px;
@@ -111,8 +110,15 @@ code-input {
 }
 
 .scroll-area {
-    padding-bottom: 1em;
+    padding-bottom: 2em;
     overflow: overlay;
+    max-width: 82vw;
+}
+
+.p-image-preview {
+    transition: transform .15s;
+    max-width: 100vw;
+    max-height: 65vh !important;
 }
 
 .p-image-preview-indicator {

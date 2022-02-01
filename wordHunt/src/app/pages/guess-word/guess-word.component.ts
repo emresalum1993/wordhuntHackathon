@@ -114,7 +114,7 @@ export class GuessWordComponent implements OnInit, AfterViewInit {
   //Show word, skip guess part. No points will be granted.
   showWord() {
     let filtered = this.answerLetter.filter((f: any) => f.type !== 1)
-    filtered.forEach((o: any, index: number) => {
+    this.answerLetter.forEach((o: any, index: number) => {
       this.answerLetter[index].char = this.randomSingle.translated.split("")[index].toLowerCase()
       this.answerLetter[index].type = 1
       this.codeInput.inputsList._results.forEach((i: any, index: number) => {

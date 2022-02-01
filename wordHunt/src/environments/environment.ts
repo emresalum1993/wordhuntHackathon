@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:3123/api",
+  apiUrl: "https://wordhuntapp.azurewebsites.net/api",
   guessScore : {
     letter: 5,
     complete : -10

@@ -1,5 +1,6 @@
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+ 
 import { fadeInLeft, fadeInRight, tada, wobble } from 'ngx-animate';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { WordServiceService } from 'src/app/services/word-service.service';
@@ -59,7 +60,7 @@ export class GuessWordComponent implements OnInit, AfterViewInit {
     //Check if word guessed right.
     event.split("").forEach((l: any, index: number) => {
       this.answerLetter[index].char = l.toLowerCase()
-      if (l == this.randomSingle.translated.split("")[index].toLowerCase()) {
+      if (l.toLowerCase() == this.randomSingle.translated.split("")[index].toLowerCase()) {
         this.answerLetter[index].type = 1
       }
       else {

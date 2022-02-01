@@ -150,7 +150,11 @@ a.user-link {
 .card-highlight .p-card {
     color: White;
     background: linear-gradient(86deg, #6366f1, #1f22a6);
-    box-shadow: rgb(99 102 241 / 50%) 0px 4px 12px !important
+    box-shadow: rgb(99 102 241 / 50%) 0px 4px 12px !important;
+    .p-avatar.p-avatar-lg {
+        width: auto;
+        padding: 0px 10px
+    }
 }
 
 .w-100 {
@@ -178,7 +182,7 @@ h1.wrong-text {
 .letter-containers input {
     width: 42px !important;
     height: 42px;
-    text-transform: capitalize;
+    text-transform: lowercase;
     text-align: center;
 }
 
@@ -278,4 +282,12 @@ a#p-tabpanel-1-label {
 
 a#p-tabpanel-0-label {
     background: transparent;
+}
+
+.p-inputtext {
+    text-transform: lowercase;
+}
+
+.fw-bolder.title {
+    margin-top: 1em;
 }

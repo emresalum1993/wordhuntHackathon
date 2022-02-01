@@ -1,1 +1,16 @@
 <router-outlet></router-outlet>
+
+
+<p-sidebar *ngIf="!userService.loadingAuth && !userService.userId" [(visible)]="displayWelcome" position="bottom">
+    <div class="d-flex align-items-center justify-content-between ps-4 pe-4">
+        <div>
+            <h4>Hoşgeldiniz.</h4>
+            <p>Demo giriş bilgileri:<br>
+                <b>E-mail: </b> test@test.com
+                <br>
+                <b>Parola: </b> 123456
+            </p>
+        </div>
+
+    </div>
+</p-sidebar>

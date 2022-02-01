@@ -11,8 +11,9 @@ import { rotateCubeToLeft } from "ngx-router-animations"
 })
 export class AppComponent {
   title = 'wordHunt';
+  displayWelcome = true
   loadingAuth = true;
-  constructor(private primengConfig: PrimeNGConfig, private userService: UserServiceService) {
+  constructor(private primengConfig: PrimeNGConfig, public userService: UserServiceService) {
     this.userService.loadingAuth$.subscribe(
       (data) => {
         this.loadingAuth = data

@@ -72,7 +72,7 @@ export class WrongTypeComponent implements OnInit, AfterViewInit {
   onCodeCompleted(event: any) {
     event.split("").forEach((l: any, index: number) => {
       this.answerLetter[index].char = l.toLowerCase()
-      if (l == this.randomSingle.translated.split("")[index].toLowerCase()) {
+      if (l.toLowerCase() == this.randomSingle.translated.split("")[index].toLowerCase()) {
         this.answerLetter[index].type = 1
       }
       else {

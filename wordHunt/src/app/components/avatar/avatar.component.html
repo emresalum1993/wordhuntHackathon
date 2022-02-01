@@ -1,12 +1,12 @@
 <div class="text-center">
-    <div class="mb-4">
+    <div class="">
         <p-skeleton *ngIf="userService.loadingAuth" width="48px" height="48px"></p-skeleton>
 
         <p-avatar *ngIf="!userService.loadingAuth" [label]="userService.user.name.split('')[0]" pBadge styleClass="mr-5" [value]="userService.user.level" size="large" [style]="{'background-color': '#4caf4f', 'color': '#ffffff'}"></p-avatar>
 
     </div>
     <ng-container *ngIf="!iconOnly">
-        <div class="name d-flex align-items-center flex-column">
+        <div class="name d-flex align-items-center flex-column mt-4">
             <div>
                 <h4 class="fw-bold m-0 me-3">{{userService.user.name}}</h4>
             </div>

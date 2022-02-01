@@ -1,24 +1,24 @@
 <div *ngIf="!userService.loadingAuth" style="height:100vh !important" class="h-100 w-100 d-flex align-items-center justify-content-center flex-column">
 
-    <img class="img-fluid mb-5" style="max-height:70px" src="../../../assets/logo.png">
+    <img class="img-fluid mb-5" style="max-height:50px" @rubber src="../../../assets/logo.png">
     <p-card [style]="{maxWidth: '400px'}">
         <ng-template pTemplate="header">
             <div class="row">
                 <div class="col-12">
                     <ng-container *ngIf="loginMode == 0">
-                        <h3 class="text-center mt-3">
+                        <h3 class="text-center mt-3" [@fadeIn]="loginMode">
                             Giriş yapın
                         </h3>
                     </ng-container>
                     <ng-container *ngIf="loginMode == 1">
-                        <h3 class="text-center mt-3">
+                        <h3 class="text-center mt-3" [@fadeIn]="loginMode">
                             Kayıt olun
                         </h3>
                     </ng-container>
                 </div>
             </div>
         </ng-template>
-        <div class="card-body p-0" *ngIf="loginMode == 0 ">
+        <div class="card-body p-0" *ngIf="loginMode == 0 " [@fadeIn]="loginMode">
             <form [formGroup]="loginForm">
                 <div class="row">
                     <div class="col-12 mb-4">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-12 mb-4">
                         <div class="field position-relative">
-                            <p-password [feedback]="false" formControlName="password" placeholder="Parola" class="w-100 p-inputtext-lg" [toggleMask]="true"></p-password>
+                            <p-password (keyup.enter)="login()" [feedback]="false" formControlName="password" placeholder="Parola" class="w-100 p-inputtext-lg" [toggleMask]="true"></p-password>
                         </div>
 
                     </div>
@@ -40,7 +40,7 @@
 
 
 
-        <div class="card-body p-0" *ngIf="loginMode == 1">
+        <div class="card-body p-0" *ngIf="loginMode == 1" [@fadeIn]="loginMode">
             <form [formGroup]="registerForm">
                 <div class="row">
                     <div class="col-12 mb-4">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-12 mb-4">
                         <div class="field position-relative">
-                            <p-password [feedback]="false" formControlName="password" placeholder="Parola" class="w-100 p-inputtext-lg" [toggleMask]="true"></p-password>
+                            <p-password (keyup.enter)="register()" [feedback]="false" formControlName="password" placeholder="Parola" class="w-100 p-inputtext-lg" [toggleMask]="true"></p-password>
                         </div>
 
                     </div>

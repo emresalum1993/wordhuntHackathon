@@ -35,7 +35,7 @@
 
                         <p-card class="card-highlight">
                             <div class="text-start">
-                                <div class="d-flex" *ngIf="loadingPool">
+                                <div class="d-flex" *ngIf="loadingPool || loadingScores">
                                     <div class="me-4">
                                         <p-skeleton class="light" width="48px" height="48px"></p-skeleton>
 
@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
 
-                                <div class="d-flex" *ngIf="!loadingPool">
+                                <div class="d-flex" *ngIf="!loadingPool && !loadingScores">
                                     <div class="me-4">
                                         <p-avatar *ngIf="pools.words.length > 0" [label]="pools.words.length" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
                                         <p-avatar *ngIf="pools.words.length == 0" [label]="'0'" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
@@ -59,7 +59,7 @@
                                     <div>
                                         <p class="fw-bold fs-6 mb-1">Öğrenilen Kelime</p>
                                         <p class="fs-7 fw-light m-0">
-                                            <b>123.</b> sıradasınız.
+                                            <b>{{myRank + 1}}</b> sıradasınız.
                                         </p>
                                     </div>
                                 </div>
@@ -184,10 +184,10 @@
 
                         <ng-container *ngIf="!pools.words || pools?.words?.length == 0  || !containsFiltersNone()">
 
-                            <img src="../../../assets/undraw_empty.svg" class="img-fluid mt-4" style="height:22vh">
-                            <h3 class="gray-light mt-5">
+                            <img src="../../../assets/undraw_empty.svg" class="img-fluid mt-4" style="height:18vh">
+                            <h4 class="gray-light mt-3">
                                 Hay aksi! Hiçbirşey bulamadık.
-                            </h3>
+                            </h4>
 
                         </ng-container>
 

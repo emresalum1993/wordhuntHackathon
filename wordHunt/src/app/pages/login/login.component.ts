@@ -1,11 +1,19 @@
+import { transition, trigger, useAnimation } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { fadeIn, fadeInLeft, fadeInRight, rubberBand } from 'ngx-animate';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations : [
+    trigger('fadeIn', [transition(':enter', useAnimation(fadeIn, { params: { timing: .5} }))]),
+    trigger('rubber', [transition('* => *', useAnimation(rubberBand, {
+      params: { timing: 1, delay: .2 }
+    }))]),
+  ]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup

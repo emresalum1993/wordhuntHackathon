@@ -1,6 +1,7 @@
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { fadeInDown, fadeInUp, slideInDown } from 'ngx-animate';
+import { UserServiceService } from 'src/app/services/user-service.service';
 import { WordServiceService } from 'src/app/services/word-service.service';
 
 @Component({
@@ -13,7 +14,9 @@ import { WordServiceService } from 'src/app/services/word-service.service';
   ]
 })
 export class MyWordsComponent implements OnInit {
-
+  loadingScores = true
+  scoreList: any
+myRank:any
   loadingPool = true
   loadingAggregated = true
   pools: any
@@ -21,7 +24,7 @@ export class MyWordsComponent implements OnInit {
   displayDetails = false
   loadingDelete = false
   selectedSingle: any
-  constructor(private wordService: WordServiceService) {
+  constructor(private wordService: WordServiceService,private userService:UserServiceService) {
     this.wordService.loadingPools$.subscribe(
       (data) => {
         this.loadingPool = data
@@ -37,8 +40,25 @@ export class MyWordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.wordService.loadPool();
+    this.wordService.loadPool();    
+    this.getScores()
 
+  }
+  getScores() {
+    this.loadingScores = true
+    this.userService.getRankWord().subscribe((data) => {
+      this.loadingScores = false
+      this.scoreList = data.result
+      this.sortScores()
+    })
+  }
+  sortScores() {
+  
+      this.scoreList.sort((a: any, b: any) => parseFloat(b.words.length) - parseFloat(a.words.length));
+      this.getYourRank()
+  }
+  getYourRank() {
+    this.myRank = this.scoreList.findIndex((el: any) => el.userId._id == this.userService.userId)
   }
   selectedItem(event: any) {
     this.displayDetails = true

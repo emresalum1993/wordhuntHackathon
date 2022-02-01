@@ -38,7 +38,7 @@ export class MultipleChoiceComponent implements OnInit {
     this.wordService.pools$.subscribe(
       (data) => {
         this.pools = data
-        if (this.pools.words.length > 0){
+        if (this.pools.words.length > 3){
           this.emptyPool = false 
           this.getRandomWord()
         }

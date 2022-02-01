@@ -1,0 +1,55 @@
+<div class="container-fluid h-100">
+    <div class="d-flex h-100 align-items-center justify-content-center flex-column">
+        <img @rubber src="../../../assets/logo.png" alt="" style="height:70px;" class="img-fluid mb-5" *ngIf="showAvatar">
+        <div [@fade]="showAvatar" *ngIf="showAvatar">
+
+            <app-avatar>
+
+            </app-avatar>
+
+        </div>
+
+        <div [@bounce]="showGameModes">
+            <div class="actions mt-4 text-center" *ngIf="!showGameModes">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <p-button (click)="showGameModes = true" label="Oyna" icon="pi pi-caret-right" styleClass="p-button-lg" [style]="{width:'220px'}"></p-button>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <p-button routerLink="/learn" label="Kelime Öğren" icon="pi pi-bookmark-fill" styleClass="p-button-lg" [style]="{width:'220px'}"></p-button>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <p-button routerLink="/myWords" label="Kelimelerim" icon="pi pi-book" styleClass="p-button-lg p-button-outlined" [style]="{width:'220px'}"></p-button>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <p-button routerLink="/ladder" label="Skor Listesi" icon="pi pi-flag-fill" styleClass="p-button-lg p-button-outlined" [style]="{width:'220px'}"></p-button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="actions mt-4 text-center" *ngIf="showGameModes">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <p-button label="Kelime Tahmin" routerLink="/guess" icon="pi pi-star" styleClass="p-button-lg" [style]="{width:'240px'}"></p-button>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <p-button label="Çoktan Seçmeli" routerLink="/multiple" icon="pi pi-check-circle" styleClass="p-button-lg" [style]="{width:'240px'}"></p-button>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <p-button label="Yazım Yanlışı" routerLink="/wrong" icon="pi pi-question-circle" styleClass="p-button-lg" [style]="{width:'240px'}"></p-button>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <p-button (click)="showGameModes = false" label="Geri" icon="pi pi-chevron-left" styleClass="p-button-lg p-button-outlined" [style]="{width:'240px'}"></p-button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

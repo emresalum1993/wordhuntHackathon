@@ -1,0 +1,219 @@
+<div class="container-fluid h-100">
+    <div class="h-100 w-100 d-flex justify-content-between flex-column p-4">
+
+        <app-small-header></app-small-header>
+        <div class="content    flex-grow-1  mt-4  d-flex flex-column">
+            <div class="title-area text-center">
+
+                <h2 class="fw-bolder title">
+                    Öğrendiğim Kelimeler
+                </h2>
+                <div class="d-flex align-items-center justify-content-center flex-column">
+                    <div class="  pt-4 text-center">
+                        <span class="p-input-icon-left" *ngIf="!loadingPool">
+                            <i class="pi pi-search"></i>
+                            <input type="text" [(ngModel)]="filterText"  pInputText placeholder="Kelimeler içinde ara" />
+                         
+                        </span>
+
+
+                    </div>
+                    <div class="text-center">
+                        <p-skeleton *ngIf="loadingPool" width="278px" height="50px"></p-skeleton>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="content-area text-center d-flex justify-content-center flex-column align-items-center pt-5">
+                <div class="word-list w-100 d-flex justify-content-center flex-column" style="max-width:600px;">
+
+                    <div class="mb-4">
+
+                        <p-card class="card-highlight">
+                            <div class="text-start">
+                                <div class="d-flex" *ngIf="loadingPool">
+                                    <div class="me-4">
+                                        <p-skeleton class="light" width="48px" height="48px"></p-skeleton>
+
+                                    </div>
+                                    <div>
+                                        <div class="mb-2">
+                                            <p-skeleton class="light" width="140px" height="24px"></p-skeleton>
+
+                                        </div>
+                                        <p-skeleton class="light" width="120px" height="18px"></p-skeleton>
+
+                                    </div>
+                                </div>
+
+                                <div class="d-flex" *ngIf="!loadingPool">
+                                    <div class="me-4">
+                                        <p-avatar *ngIf="pools.words.length > 0" [label]="pools.words.length" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
+                                        <p-avatar *ngIf="pools.words.length == 0" [label]="'0'" styleClass="mr-5" size="large" [style]="{'background-color': '#262894', 'color': '#ffffff'}"></p-avatar>
+
+                                    </div>
+                                    <div>
+                                        <p class="fw-bold fs-6 mb-1">Öğrenilen Kelime</p>
+                                        <p class="fs-7 fw-light m-0">
+                                            <b>123.</b> sıradasınız.
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </p-card>
+                    </div>
+
+                    <ng-container *ngIf="loadingPool">
+                        <div class="mb-4">
+
+                            <p-card>
+                                <div class="text-start">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <div class="mb-4">
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                            <div>
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="text-end">
+                                                <div class="mb-3">
+                                                    <p-skeleton width="62px" height="26px"></p-skeleton>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="text-end">
+                                                <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </p-card>
+
+                        </div>
+                        <div class="mb-4">
+
+                            <p-card>
+                                <div class="text-start">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <div class="mb-4">
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                            <div>
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="text-end">
+                                                <div class="mb-3">
+                                                    <p-skeleton width="62px" height="26px"></p-skeleton>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="text-end">
+                                                <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </p-card>
+
+                        </div>
+                        <div class="">
+
+                            <p-card>
+                                <div class="text-start">
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1">
+                                            <div class="mb-4">
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                            <div>
+                                                <p-skeleton width="120px" height="35px"></p-skeleton>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div class="text-end">
+                                                <div class="mb-3">
+                                                    <p-skeleton width="62px" height="26px"></p-skeleton>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="text-end">
+                                                <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </p-card>
+
+                        </div>
+
+                    </ng-container>
+                    <ng-container *ngIf="!loadingPool">
+                        <ng-container *ngIf="pools?.words.length > 0">
+                            <ng-container *ngFor="let item of pools?.words">
+                                <app-single-word @tada *ngIf="containsFilter(item)" class="mb-4" [item]="item" (selectedDetails)="selectedItem($event)"></app-single-word>
+
+                            </ng-container>
+
+                        </ng-container>
+
+
+                        <ng-container *ngIf="!pools.words || pools?.words?.length == 0  || !containsFiltersNone()">
+
+                            <img src="../../../assets/undraw_empty.svg" class="img-fluid mt-4" style="height:22vh">
+                            <h3 class="gray-light mt-5">
+                                Hay aksi! Hiçbirşey bulamadık.
+                            </h3>
+
+                        </ng-container>
+
+
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<p-sidebar [blockScroll]="true" [(visible)]="displayDetails" position="bottom">
+
+
+    <div class="d-flex align-items-center justify-content-center flex-column">
+        <div style="max-width:600px;" class="text-center">
+            <p class="mb-4">Bu kelime listenizden kaldırılacak. Devam etmek istediğinize emin misiniz?</p>
+            <div>
+                <button pButton pRipple type="button" label="İptal" (click)="displayDetails = false" class="p-button-outlined p-button-secondary me-3"></button>
+                <button [loading]="loadingDelete" pButton pRipple type="button" label="Sil" (click)="completeDelete()" class="p-button-danger"></button>
+            </div>
+
+        </div>
+    </div>
+
+</p-sidebar>

@@ -1,0 +1,31 @@
+<div class="text-center">
+    <div class="mb-4">
+        <p-skeleton *ngIf="userService.loadingAuth" width="48px" height="48px"></p-skeleton>
+
+        <p-avatar *ngIf="!userService.loadingAuth" [label]="userService.user.name.split('')[0]" pBadge styleClass="mr-5" [value]="userService.user.level" size="large" [style]="{'background-color': '#4caf4f', 'color': '#ffffff'}"></p-avatar>
+
+    </div>
+    <ng-container *ngIf="!iconOnly">
+        <div class="name d-flex align-items-center flex-column">
+            <div>
+                <h4 class="fw-bold m-0 me-3">{{userService.user.name}}</h4>
+            </div>
+
+        </div>
+
+        <div class="mt-2">
+            <p class="description fw-light fs-6 mb-1">
+                {{userService.user.level}} Seviye
+            </p>
+            <p class="description fw-light fs-6">
+                {{userService.user.score}} Puan
+            </p>
+        </div>
+        <div>
+            <div>
+
+                <button (click)="logOut()" pButton pRipple type="button" icon="pi pi-power-off" class="p-button-rounded p-button-text p-button-danger"></button>
+            </div>
+        </div>
+    </ng-container>
+</div>

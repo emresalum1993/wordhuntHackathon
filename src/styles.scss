@@ -1,0 +1,281 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap');
+$grayscale_100:rgb(246,
+247,
+248);
+$grayscale_200:#d4d4d8;
+$grayscale_300:#D5DDE5;
+$grayscale_400:#B8C1CC;
+$grayscale_500:#ADB9C7;
+$grayscale_600:#8F9CA9;
+$grayscale_700:#66737F;
+$grayscale_800:#36414C;
+$grayscale_900:#1B252F;
+$primary: #4F46E5;
+$secondary: #4f46e552;
+$success:#37C574;
+$warning:#FF9700;
+$info:#3EAEFF;
+$alert:#FE5050;
+:root {
+    --font-family: 'Product Sans', sans-serif !important;
+}
+
+body {
+    font-family: 'Cabin', sans-serif;
+    min-height: 100vh;
+    background: url('./assets/bg.png');
+    background-repeat-x: repeat;
+    background-repeat-y: no-repeat;
+    background-position-y: bottom;
+    background-attachment: fixed;
+}
+
+.gray-light {
+    color: $grayscale_500
+}
+
+app-root {
+    background: linear-gradient(180deg, rgba(197, 197, 197, 0.51) 20px, rgba(255, 255, 255, 0) 70px);
+    display: block;
+}
+
+.p-card {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+    .p-card-header {
+        padding: 1.5rem 1.5rem 0 1.5rem
+    }
+    .p-card-body {
+        padding: 1.5rem;
+        .p-card-content {
+            padding: 0;
+        }
+    }
+}
+
+.w-100 {
+    input {
+        width: 100%;
+    }
+    .p-inputwrapper {
+        width: 100%;
+        i.pi-eye,
+        i.pi-eye-slash {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 20px;
+            margin: 0 !important
+        }
+    }
+}
+
+.p-speeddial-mask-visible {
+    position: fixed !important;
+    background: #000000e3;
+}
+
+.word-img {
+    padding: 1em;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .p-image-preview-container>img {
+        cursor: pointer;
+        max-height: 20vh;
+        width: auto !important;
+        border-radius: 1em;
+        box-shadow: rgb(0 0 0 / 10%) 0px 10px 15px -3px, rgb(0 0 0 / 5%) 0px 4px 6px -2px;
+    }
+}
+
+.p-image-preview-indicator {
+    border-radius: 1em;
+    background: #6366f166 !important;
+}
+
+code-input {
+    justify-content: center;
+    align-items: center;
+    span {
+        width: 58px;
+        flex: inherit !important;
+        input {
+            width: 50px !important;
+            height: 50px !important;
+        }
+    }
+}
+
+.scroll-area {
+    padding-bottom: 1em;
+    overflow: overlay;
+}
+
+.p-image-preview-indicator {
+    border-radius: 1em;
+    background: #6366f166 !important;
+}
+
+.p-image-preview {
+    border-radius: 1em;
+}
+
+.p-image-mask {
+    --maskbg: #6366f1bd;
+}
+
+.button-area .p-button {
+    min-width: 300px;
+}
+
+.p-tabview .p-tabview-nav {
+    justify-content: center;
+    border: none;
+}
+
+a.user-link {
+    color: #495057;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.fs-7 {
+    font-size: .9rem
+}
+
+.card-highlight .p-card {
+    color: White;
+    background: linear-gradient(86deg, #6366f1, #1f22a6);
+    box-shadow: rgb(99 102 241 / 50%) 0px 4px 12px !important
+}
+
+.w-100 {
+    input {
+        width: 100%;
+    }
+}
+
+.absolute-button.translate-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}
+
+span.p-button-label {
+    font-size: .85rem;
+}
+
+h1.wrong-text {
+    font-size: 2em;
+    letter-spacing: 14px;
+}
+
+.letter-containers input {
+    width: 42px !important;
+    height: 42px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.letter-containers {
+    display: flex;
+    gap: 10px;
+    padding: .5em .5em;
+}
+
+code-input span input.fail {
+    border: 2px solid #ff7683 !important;
+}
+
+code-input span input.success {
+    border: 2px solid #22c55e !important;
+}
+
+.status-area {
+    background: red;
+    padding: 1.2em;
+    margin: 0 1em;
+    border-radius: 10px;
+}
+
+.status-area.noscore {
+    background: #dc354536;
+    color: #dc3545;
+    box-shadow: 0px 0px 10px #dc354514;
+}
+
+.status-area.score {
+    background: #22c55e30;
+    box-shadow: 0px 0px 10px #22c55e26;
+    color: #22c55e
+}
+
+p-skeleton.light .p-skeleton {
+    background: #ffffff2b;
+}
+
+.p-sidebar.p-sidebar-bottom {
+    height: auto !important;
+    border-top-right-radius: 2em;
+    border-top-left-radius: 2em;
+    max-height: 350px;
+    .p-sidebar-header {
+        .p-sidebar-icon {
+            position: absolute;
+            top: -50px;
+            background: White;
+        }
+    }
+    .p-sidebar-content {
+        padding-top: 0;
+    }
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+    margin: 0;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+    font-size: 1.5rem;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+    display: flex;
+    align-items: center;
+}
+
+.confetti-svg {
+    background-repeat: repeat-x;
+    background-image: url('./assets/confetti.svg');
+    height: 190px;
+    position: fixed;
+    border: 0;
+    width: 100vw;
+    left: 0;
+    bottom: 0;
+    transform: rotateZ( -180deg);
+    pointer-events: none;
+}
+
+.p-tabview .p-tabview-nav {
+    background: transparent;
+}
+
+.p-tabview div {}
+
+.p-tabview-panels {
+    background: transparent !important;
+}
+
+a#p-tabpanel-1-label {
+    background: transparent !important;
+}
+
+a#p-tabpanel-0-label {
+    background: transparent;
+}

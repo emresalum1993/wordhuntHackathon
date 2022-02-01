@@ -1,0 +1,277 @@
+<div class="container-fluid h-100">
+    <div class="h-100 w-100 d-flex justify-content-between flex-column p-4">
+
+        <app-small-header></app-small-header>
+        <div class="content    flex-grow-1  mt-4  d-flex flex-column">
+            <div class="title-area text-center">
+
+                <h2 class="fw-bolder title">
+                    Kelime Öğren
+                </h2>
+
+
+
+
+            </div>
+
+            <div class="content-area text-center d-flex justify-content-center flex-column align-items-center pt-3">
+                <div class="word-list w-100 d-flex justify-content-center flex-column" style="max-width:600px;">
+
+                    <div class="text-start">
+
+                        <div class="w-100">
+
+                            <div class="mb-4 text-center">
+                                <p-selectButton [options]="translateOptions" [(ngModel)]="translateMode" optionLabel="name" optionValue="code"></p-selectButton>
+                            </div>
+                            <div class="position-relative">
+                                <input (keyup.enter)="translate()" [(ngModel)]="translateText" type="text" class="p-inputtext-lg w-100" style="padding-right:100px" placeholder="Kelime çevirin" pInputText />
+                                <div class="absolute-button translate-button">
+                                    <p-button (click)="translate()" [loading]="loadingTranslate" [disabled]="disabledTranslate()" label="Çevir" styleClass="p-button-sm"></p-button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="translate-result loading d-flex align-items-center justify-content-center mt-4" *ngIf="loadingTranslate">
+                            <p-progressSpinner [style]="{width: '50px', height: '50px'}"></p-progressSpinner>
+                        </div>
+                        <div class="translate-result" *ngIf="translateResult && !loadingTranslate ">
+
+                            <div>
+
+                                <div class="d-flex align-items-center justify-content-between mt-5">
+                                    <div class="flex-grow-1 d-flex align-items-center justify-content-start">
+                                        <div>
+                                            <h1 class="text-left fw-bold m-0">
+                                                {{translateResult[0].translations[0].text}}
+                                            </h1>
+                                        </div>
+                                        <div>
+                                            <button (click)="copyToClipBoard(translateResult[0].translations[0].text)" pButton pRipple type="button" icon="pi pi-copy" class="p-button-rounded p-button-secondary p-button-text ms-3"></button>
+                                        </div>
+
+                                    </div>
+                                    <div>
+                                        <p-button [loading]="savingNewWord" *ngIf="!savedRecent" (click)="saveWordToPool()" label="Öğrendim!" styleClass="p-button-outlined" icon="pi pi-bookmark"></p-button>
+                                        <button pTooltip="Öğrendiklerimi göster" routerLink="/myWords" tooltipPosition="left" *ngIf="savedRecent" pButton pRipple type="button" icon="pi pi-bookmark-fill" class=" p-button-outlined p-button-success"></button>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="mt-5">
+
+                            <div class="mb-4 mt-5">
+                                <p class="fs-6 fw-bolder gray-light text-center mt-4">
+                                    Önceki aramalarım
+                                </p>
+                                <div class="text-center">
+                                    <span class="p-input-icon-left" *ngIf="!loadingHistory && historyItems?.words.length > 0">
+                                        <i class="pi pi-search"></i>
+                                        <input type="text" [(ngModel)]="filterText"  pInputText placeholder="Kelimeler içinde ara" />
+                                     
+                                    </span>
+
+
+                                </div>
+                            </div>
+                            <ng-container *ngIf="loadingHistory && historyItems">
+
+                                <div class="mb-4">
+                                    <p-card>
+
+
+                                        <div class="word-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p-skeleton width="150px" height="20px"></p-skeleton>
+                                                    <div class="mt-2">
+                                                        <p-skeleton width="180px" height="30px"></p-skeleton>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fw-bolder mb-0">
+
+                                                        <p-skeleton width="67px" height="26px"></p-skeleton>
+                                                    </h5>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </p-card>
+                                </div>
+                            </ng-container>
+
+
+                            <ng-container *ngIf="!loadingHistory || historyItems?.words.length > 0">
+                                <ng-container *ngIf="historyItems ">
+                                    <ng-container *ngFor="let item of historyItems.words">
+                                        <div class="mb-4" *ngIf="containsFilter(item)">
+
+
+
+                                            <p-card>
+
+
+                                                <div class="word-item">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="flex-grow-1">
+                                                            <p class="fs-7 mb-0 fw-light">
+                                                                {{item.original}}
+                                                            </p>
+                                                            <p class="fs-6 fw-bold mb-0">
+                                                                {{item.translated}}
+                                                            </p>
+                                                        </div>
+                                                        <div class="text-end" *ngIf="item.score">
+                                                            <h5 class="fw-bolder mb-0">
+
+                                                                <p-tag [value]="'+' + item.score "></p-tag>
+                                                            </h5>
+                                                        </div>
+                                                        <div>
+                                                            <button (click)="copyToClipBoard(item.translated)" pButton pRipple type="button" icon="pi pi-copy" class="p-button-rounded p-button-secondary p-button-text ms-1"></button>
+                                                            <button [loading]="item.saving" (click)="saveWordToPoolByWord(item,item.original,item.translated,item.sourceLang,item.destLang)" pButton pRipple type="button" icon="pi pi-bookmark" class=" p-button-rounded p-button-success p-button-text" *ngIf="!item.inPool"></button>
+                                                            <button (click)="completeDelete(item)" pButton pRipple type="button" icon="pi pi-bookmark" class=" p-button-rounded p-button-success" *ngIf="item.inPool"></button>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </p-card>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+
+                            </ng-container>
+
+                            <ng-container *ngIf="loadingHistory && !historyItems">
+                                <div class="mb-4">
+                                    <p-card>
+
+
+                                        <div class="word-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p-skeleton width="150px" height="20px"></p-skeleton>
+                                                    <div class="mt-2">
+                                                        <p-skeleton width="180px" height="30px"></p-skeleton>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fw-bolder mb-0">
+
+                                                        <p-skeleton width="67px" height="26px"></p-skeleton>
+                                                    </h5>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </p-card>
+                                </div>
+                                <div class="mb-4">
+                                    <p-card>
+
+
+                                        <div class="word-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p-skeleton width="150px" height="20px"></p-skeleton>
+                                                    <div class="mt-2">
+                                                        <p-skeleton width="180px" height="30px"></p-skeleton>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fw-bolder mb-0">
+
+                                                        <p-skeleton width="67px" height="26px"></p-skeleton>
+                                                    </h5>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </p-card>
+                                </div>
+
+                                <div class="mb-4">
+                                    <p-card>
+
+
+                                        <div class="word-item">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <p-skeleton width="150px" height="20px"></p-skeleton>
+                                                    <div class="mt-2">
+                                                        <p-skeleton width="180px" height="30px"></p-skeleton>
+                                                    </div>
+                                                </div>
+                                                <div class="text-end">
+                                                    <h5 class="fw-bolder mb-0">
+
+                                                        <p-skeleton width="67px" height="26px"></p-skeleton>
+                                                    </h5>
+                                                </div>
+                                                <div class="ms-3">
+                                                    <p-skeleton shape="circle" size="48px"></p-skeleton>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+                                    </p-card>
+                                </div>
+
+
+                            </ng-container>
+
+                            <ng-container *ngIf="!loadingHistory && (historyItems.words.length == 0 || !containsFiltersNone())">
+                                <div class="text-center">
+                                    <img src="../../../assets/undraw_notfound.svg" class="img-fluid mt-4" style="height:22vh">
+                                    <h3 class="gray-light mt-5">
+                                        Hay aksi! Hiçbirşey bulamadık.
+                                    </h3>
+                                </div>
+                            </ng-container>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-toast position="bottom-center" key="bc"></p-toast>

@@ -1,0 +1,70 @@
+<p-card *ngIf="!item.deleting">
+    <div class="text-start">
+        <div class="d-flex">
+            <div class="flex-grow-1">
+                <div class="mb-3">
+
+                    <p class="fw-light fs-7 m-0 fw-normal gray-light">
+                        {{getLang(item.sourceLang)}}
+                    </p>
+                    <p class="fw-bold fs-6 m-0">
+                        {{item.original}}
+                    </p>
+                </div>
+                <div>
+                    <p class="fw-light fs-7 m-0 fw-normal gray-light">
+                        {{getLang(item.destLang)}}
+                    </p>
+                    <p class="fw-bold fs-6 m-0">
+                        {{item.translated}}
+                    </p>
+                </div>
+            </div>
+            <div class="d-flex flex-column justify-content-between">
+                <div class="text-end">
+                    <div class="mb-3">
+                        <p-tag *ngIf="item.score > 0" [value]="'+' + item.score + ' Puan'"></p-tag>
+                        <p-tag *ngIf="item.score <= 0 || !item.score" value="+0 Puan" severity="warning"></p-tag>
+                    </div>
+
+
+                </div>
+
+                <div class="text-end">
+                    <button (click)="selectItem()" pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-secondary p-button-text p-button-sm"></button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</p-card>
+<p-card *ngIf="item.deleting">
+    <div class="text-start">
+        <div class="d-flex">
+            <div class="flex-grow-1">
+                <div class="mb-4">
+                    <p-skeleton width="120px" height="35px"></p-skeleton>
+                </div>
+                <div>
+                    <p-skeleton width="120px" height="35px"></p-skeleton>
+                </div>
+            </div>
+            <div class="d-flex flex-column justify-content-between">
+                <div class="text-end">
+                    <div class="mb-3">
+                        <p-skeleton width="62px" height="26px"></p-skeleton>
+                    </div>
+
+
+                </div>
+
+                <div class="text-end">
+                    <p-skeleton shape="circle" size="48px"></p-skeleton>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</p-card>

@@ -44,9 +44,9 @@ app.post("/api/user/login", (req, res, next) => {
     }
     Modals.User.findOne({ "mail": req.body.mail, "password": hash }).then(data => {
         if (data) {
-            res.status(202).json({ message: "Giriş başarılı.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         } else {
-            res.status(202).json({ message: "Kullanıcı bulunamadı.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         }
     })
 });
@@ -59,7 +59,7 @@ app.post("/api/user/register", (req, res, next) => {
     const user = new Modals.User(registerBody)
     user.save().then(user => {
         res.status(200).json({
-            message: "Başarıyla kayıt olundu",
+            message: "Success",
             result: user,
         });
     });
@@ -70,9 +70,9 @@ app.get("/api/pools/:userId", (req, res, next) => {
         model: Modals.Word
     }).then(data => {
         if (data) {
-            res.status(202).json({ message: "Havuz başarıyla bulundu.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         } else {
-            res.status(202).json({ message: "Havuz bulunamadı.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         }
     })
 });
@@ -83,9 +83,9 @@ app.get("/api/history/:userId", (req, res, next) => {
         options: { sort: { 'date': -1 } }
     }).then(data => {
         if (data) {
-            res.status(202).json({ message: "Geçmiş başarıyla bulundu.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         } else {
-            res.status(202).json({ message: "Gemçiş bulunamadı.", result: data });
+            res.status(202).json({ message: "Success", result: data });
         }
     })
 });
@@ -93,7 +93,7 @@ app.post("/api/history/:userId", (req, res, next) => {
     const history = new Modals.History(req.body)
     history.save().then(pool => {
         res.status(200).json({
-            message: "Başarıyla oluşturuldu",
+            message: "Success",
             result: pool,
         });
     });
@@ -102,7 +102,7 @@ app.post("/api/pools/:userId", (req, res, next) => {
     const pool = new Modals.Pool(req.body)
     pool.save().then(pool => {
         res.status(200).json({
-            message: "Başarıyla oluşturuldu",
+            message: "Success",
             result: pool,
         });
     });
@@ -123,7 +123,7 @@ app.post("/api/pools/user/add", (req, res, next) => {
                 req.body.source = 0
                 req.body.score = 0
                 res.status(200).json({
-                    message: "Kelime havuza eklendi",
+                    message: "Success",
                     result: returnBody
                 });
             })
@@ -143,7 +143,7 @@ app.post("/api/pools/user/add", (req, res, next) => {
                     req.body.source = 0
                     req.body.score = 0
                     res.status(200).json({
-                        message: "Kelime havuza eklendi",
+                        message: "Success",
                         result: returnBody
                     });
                 })
@@ -154,7 +154,7 @@ app.post("/api/pools/user/add", (req, res, next) => {
 app.post("/api/pools/user/delete", (req, res, next) => {
     Modals.Pool.updateOne({ "userId": req.body.userId }, { $pull: { words: req.body.itemId } }).then(deletedWord => {
         res.status(200).json({
-            message: "Single article deleted",
+            message: "Success",
             result: deletedWord
         });
     })
@@ -174,7 +174,7 @@ app.get("/api/pools/user/aggregate", (req, res, next) => {
         }
     }]).then(result => {
         res.status(200).json({
-            message: "Toplu geldi",
+            message: "Success",
             result: result
         });
     })
@@ -183,7 +183,7 @@ app.get("/api/rank/word", (req, res, next) => {
     Modals.Pool.find()
         .populate('userId', { name: 1, registerTime: 1, score: 1 }).then(result => {
             res.status(200).json({
-                message: "Toplu geldi",
+                message: "Success",
                 result: result
             });
         })
@@ -197,7 +197,7 @@ app.post("/api/history/user/add", (req, res, next) => {
             Modals.History.updateOne({ "userId": req.body.userId }, { $push: { words: data._id } }).then(singleHistory => {
                 returnBody.history = singleHistory
                 res.status(200).json({
-                    message: "Kelime havuza eklendi",
+                    message: "Success",
                     result: returnBody
                 });
             })
@@ -207,7 +207,7 @@ app.post("/api/history/user/add", (req, res, next) => {
                 Modals.History.updateOne({ "userId": req.body.userId }, { $push: { words: word._id } }).then(singleHistory => {
                     returnBody.history = singleHistory
                     res.status(200).json({
-                        message: "Kelime havuza eklendi",
+                        message: "Success",
                         result: returnBody
                     });
                 })
@@ -219,7 +219,7 @@ app.post("/api/history/user/add", (req, res, next) => {
 app.post("/api/user/incscore", (req, res, next) => {
     Modals.User.updateOne({ _id: req.body.userId }, { $inc: { score: req.body.score } }).then((user) => {
         res.status(200).json({
-            message: "Single article deleted",
+            message: "Success",
             result: user
         });
     })
@@ -249,7 +249,7 @@ app.post("/api/translate", (req, res, next) => {
         responseType: 'json'
     }).then(function(response) {
         res.status(200).json({
-            message: "Başarıyla çevrildi.",
+            message: "Success",
             result: JSON.stringify(response.data, null, 4),
         });
 
@@ -274,7 +274,7 @@ app.get("/api/imagesearch/:term", (req, res, next) => {
         response.on('end', function() {
 
             res.status(200).json({
-                message: "Başarıyla çevrildi.",
+                message: "Success",
                 result: body
             });
         });

@@ -28,4 +28,4 @@ Projede kullanılan teknolojiler ve kullanım amaçları ile ilgili detaylar:
  
 ## Platformlar 
 - [mongoDB] - Veritabanı https://www.mongodb.com/ adresinde barınıyor.  
-- [Azure] - Nodejs web uygulaması https://azure.microsoft.com/ adresinde barınıyor. Ayrıca Bing Search API kullanılıyor. 
+- [Azure] - Nodejs web uygulaması https://azure.microsoft.com/ adresinde barınıyor. Ayrıca Bing Search API ve Cognitive Services - Translate API kullanılıyor. 

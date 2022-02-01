@@ -1,5 +1,6 @@
 # WordHunt Hackathon
 
+![](https://emresalum1993.github.io/assets/logo.png)
 
 ## Giriş bilgileri
 Demo kullanıcı hesabına giriş yapmak için gerekli bilgileri aşağıda bulabilirsiniz.

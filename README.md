@@ -23,5 +23,8 @@ Projede kullanılan teknolojiler ve kullanım amaçları ile ilgili detaylar:
 
 - [Angular] - Ön yüz 
 - [NodeJS] - Arka yüz
-- [MongoDB] - Veri tabanı
+- [MongoDB] - Veri tabanı NOSQL
  
+## Platformlar 
+- [mongoDB.com] - Veritabanı https://https://www.mongodb.com/ adresinde barınıyor.  
+- [Azure] - Nodejs web uygulaması https://azure.microsoft.com/ adresinde barınıyor. Ayrıca Bing Search API kullanılıyor. 
